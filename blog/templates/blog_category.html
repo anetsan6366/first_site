@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block page_content %}
+<div class="col-md-8 offset-md-2">
+    <h1>{{ category | title }}</h1>
+    <hr>
+    {% for blog in blogs %}
+        <h2><a href="{% url 'blog_details' blog.pk%}">{{ blog.title }}</a></h2>
+        <small>
+            {{ blog.created_on.date }} |&nbsp;
+            Категории:&nbsp;
+            {% for category in blog.categories.all %}
+            <a href="{% url 'blog_category' category.name %}">
+                {{ category.name }}
+            </a>&nbsp;
+            {% endfor %}
+        </small>
+        <p>{{ blog.body | slice:":400" }}...</p>
+    {% endfor %}
+</div>
+{% endblock %}
